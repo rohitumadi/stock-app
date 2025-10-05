@@ -2,8 +2,8 @@ import { Button } from "@/components/ui/button";
 
 const Home = () => {
   return (
-    <div className="flex justify-center items-center h-screen">
-      <Button variant="outline">Hello World</Button>
+    <div className="flex justify-center items-center home-wrapper">
+      <Button variant="outline">Home</Button>
     </div>
   );
 };
