@@ -27,14 +27,7 @@ function TradingViewWidget({
         className={cn("tradingview-widget-container", className)}
         ref={containerRef}
         style={{ height: "100%", width: "100%" }}
-      >
-        <div
-          className={cn("tradingview-widget-container", className)}
-          ref={containerRef}
-          style={{ height: "100%", width: "100%" }}
-        >
-        </div>
-      </div>
+      ></div>
     </div>
   );
 }
