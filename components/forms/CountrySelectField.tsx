@@ -70,63 +70,71 @@ const CountrySelectField = ({
         name={name}
         control={control}
         rules={{ required: required ? `Please select ${label}` : false }}
-        render={({ field }) => (
-          <Popover open={open} onOpenChange={setOpen}>
-            <PopoverTrigger asChild>
-              <Button
-                variant="outline"
-                role="combobox"
-                aria-expanded={open}
-                className="w-full justify-between bg-gray-800 border-gray-600 text-white hover:bg-gray-700"
-              >
-                <div className="flex items-center gap-2">
-                  {selectedCountry && (
-                    <span className="text-lg">{selectedCountry.flag}</span>
-                  )}
-                  <span>
-                    {selectedCountry
-                      ? selectedCountry.label
-                      : "Select country..."}
-                  </span>
-                </div>
-                <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-              </Button>
-            </PopoverTrigger>
-            <PopoverContent className="w-full p-0 bg-gray-800 border-gray-600">
-              <Command>
-                <CommandInput
-                  placeholder="Search country..."
-                  className="bg-gray-800 text-white border-gray-600"
-                />
-                <CommandList className="max-h-[200px]">
-                  <CommandEmpty>No country found.</CommandEmpty>
-                  <CommandGroup>
-                    {options.map((option) => (
-                      <CommandItem
-                        key={option.value}
-                        value={option.label}
-                        onSelect={() => {
-                          changeHandler(option.value);
-                          field.onChange(option.value);
-                        }}
-                        className="text-white hover:bg-gray-700"
-                      >
-                        <Check
-                          className={cn(
-                            "mr-2 h-4 w-4",
-                            value === option.value ? "opacity-100" : "opacity-0"
-                          )}
-                        />
-                        <span className="mr-2 text-lg">{option.flag}</span>
-                        {option.label}
-                      </CommandItem>
-                    ))}
-                  </CommandGroup>
-                </CommandList>
-              </Command>
-            </PopoverContent>
-          </Popover>
-        )}
+        render={({ field }) => {
+          // Sync local state with form state
+          if (field.value !== value) {
+            setValue(field.value);
+          }
+          return (
+            <Popover open={open} onOpenChange={setOpen}>
+              <PopoverTrigger asChild>
+                <Button
+                  variant="outline"
+                  role="combobox"
+                  aria-expanded={open}
+                  className="w-full justify-between bg-gray-800 border-gray-600 text-white hover:bg-gray-700"
+                >
+                  <div className="flex items-center gap-2">
+                    {selectedCountry && (
+                      <span className="text-lg">{selectedCountry.flag}</span>
+                    )}
+                    <span>
+                      {selectedCountry
+                        ? selectedCountry.label
+                        : "Select country..."}
+                    </span>
+                  </div>
+                  <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="w-full p-0 bg-gray-800 border-gray-600">
+                <Command>
+                  <CommandInput
+                    placeholder="Search country..."
+                    className="bg-gray-800 text-white border-gray-600"
+                  />
+                  <CommandList className="max-h-[200px]">
+                    <CommandEmpty>No country found.</CommandEmpty>
+                    <CommandGroup>
+                      {options.map((option) => (
+                        <CommandItem
+                          key={option.value}
+                          value={option.label}
+                          onSelect={() => {
+                            changeHandler(option.value);
+                            field.onChange(option.value);
+                          }}
+                          className="text-white hover:bg-gray-700"
+                        >
+                          <Check
+                            className={cn(
+                              "mr-2 h-4 w-4",
+                              value === option.value
+                                ? "opacity-100"
+                                : "opacity-0"
+                            )}
+                          />
+                          <span className="mr-2 text-lg">{option.flag}</span>
+                          {option.label}
+                        </CommandItem>
+                      ))}
+                    </CommandGroup>
+                  </CommandList>
+                </Command>
+              </PopoverContent>
+            </Popover>
+          );
+        }}
       />
     </div>
   );

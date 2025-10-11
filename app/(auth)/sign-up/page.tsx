@@ -11,7 +11,7 @@ import {
 } from "@/lib/constants";
 import { useForm } from "react-hook-form";
 
-const SingUp = () => {
+const SignUp = () => {
   const {
     register,
     handleSubmit,
@@ -58,8 +58,10 @@ const SingUp = () => {
           register={register}
           validation={{
             required: "Email is required",
-            pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-            message: "Invalid email address",
+            pattern: {
+              value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+              message: "Invalid email address",
+            },
           }}
           error={errors.email}
         />
@@ -76,7 +78,13 @@ const SingUp = () => {
           type="password"
           placeholder="********"
           register={register}
-          validation={{ required: "Password is required" }}
+          validation={{
+            required: "Password is required",
+            minLength: {
+              value: 6,
+              message: "Password must be at least 6 characters long",
+            },
+          }}
           error={errors.password}
         />
 
@@ -125,4 +133,4 @@ const SingUp = () => {
     </>
   );
 };
-export default SingUp;
+export default SignUp;

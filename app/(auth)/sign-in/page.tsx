@@ -34,6 +34,13 @@ const SignIn = () => {
           placeholder="jon@demo.com"
           register={register}
           error={errors.email}
+          validation={{
+            required: "Email is required",
+            pattern: {
+              value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+              message: "Invalid email address",
+            },
+          }}
         />
         <InputField
           name="password"
@@ -41,6 +48,13 @@ const SignIn = () => {
           placeholder="123123"
           register={register}
           error={errors.password}
+          validation={{
+            required: "Password is required",
+            minLength: {
+              value: 6,
+              message: "Password must be at least 6 characters long",
+            },
+          }}
         />
         <Button
           type="submit"
